@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ level.name }} Görev Detayı{% endblock %}
+
+{% block content %}
+
+<!-- Geri okuna sahip ve sayfa başlığını ortalayan standart başlık -->
+<header class="page-header">
+    <a href="{{ url_for('menu') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+    <h1>{{ level.name }}</h1>
+</header>
+
+<main>
+    <!-- Üstteki turuncu bakiye alanı -->
+    <section class="task-header">
+        <h2>Account Balance:</h2>
+        <p class="balance">{{ "%.2f"|format(user.balance) }} USDT</p>
+    </section>
+    
+    <!-- İstatistikleri gösteren beyaz kart -->
+    <div class="task-stats-box">
+        <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Today's Times</div>
+        </div>
+         <div class="stat-item">
+            <div class="stat-value">0 USDT</div>
+            <div class="stat-label">Today's commission</div>
+        </div>
+         <div class="stat-item">
+            <div class="stat-value">0 USDT</div>
+            <div class="stat-label">Cash gap between tasks</div>
+        </div>
+         <div class="stat-item">
+            <div class="stat-value">0 USDT</div>
+            <div class="stat-label">Yesterday's buy commission</div>
+        </div>
+         <div class="stat-item">
+            <div class="stat-value">0 USDT</div>
+            <div class="stat-label">Yesterday's team commission</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">0 USDT</div>
+            <div class="stat-label">Money frozen in accounts</div>
+        </div>
+    </div>
+    
+    <!-- Görevi başlatma butonu -->
+    <button class="grab-order-button">Grab the order immediately</button>
+    
+    <!-- Alttaki bilgilendirme notları -->
+    <div class="hints content">
+        <h3>Hint:</h3>
+        <p>1: {{ level.commission_rate }}% of the amount of completed transactions earned.</p>
+        <p>2: The system sends tasks randomly. Complete them as soon as possible after matching them, so as to avoid hanging all the time.</p>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block title %}Profilim{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Üstteki turuncu kullanıcı bilgi alanı -->
+    <header class="mine-header">
+        <div class="user-info">
+            <!-- Avatar'ı her kullanıcı için farklı göstermek için bir placeholder servisi kullandım -->
+            <img src="https://i.pravatar.cc/150?u={{ user.username }}" alt="Avatar" class="avatar">
+            <div class="user-details">
+                <span class="username">
+                    {{ user.username }}
+                    <span class="vip-badge">VIP {{ user.vip_level }}</span>
+                </span>
+                <span class="invitation-code">Invitation code: {{ user.invitation_code }}</span>
+            </div>
+        </div>
+        <div class="account-balance">
+            <h2>My Account</h2>
+            <!-- "%.2f"|format() filtresi, sayıyı 2 ondalık basamakla gösterir (örn: 0.00) -->
+            <p class="balance">USDT {{ "%.2f"|format(user.balance) }}</p>
+        </div>
+        
+        <!--
+            Bu bölüm, ekran görüntüsündeki gibi başlığın içine gömülü,
+            yatayda hizalanmış Para Yatırma ve Çekme butonlarıdır.
+            (Not: CSS ile bu bölüm daha sonra en alta taşınarak farklı bir görünüm de alabilir)
+        -->
+        <div class="header-main-actions">
+            <a href="{{ url_for('deposit') }}" class="action-item">
+                <i class="fas fa-wallet"></i>
+                <span>Deposit</span>
+            </a>
+            <a href="#" class="action-item"> <!-- Para çekme sayfası henüz yok -->
+                <i class="fas fa-hand-holding-usd"></i>
+                <span>Withdrawal</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hızlı erişim menüsü (başlığın altındaki beyaz kutu) -->
+    <section class="quick-menu-grid">
+        <a href="{{ url_for('teams') }}" class="menu-item">
+            <i class="fas fa-users"></i>
+            <span>Teams</span>
+        </a>
+        <a href="{{ url_for('tasks_record') }}" class="menu-item">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Record</span>
+        </a>
+        <a href="{{ url_for('wallet') }}" class="menu-item">
+            <i class="fas fa-credit-card"></i>
+            <span>Wallet management</span>
+        </a>
+        <a href="{{ url_for('invite') }}" class="menu-item">
+            <i class="fas fa-user-plus"></i>
+            <span>Invite friends</span>
+        </a>
+    </section>
+    
+    <!-- Link listesi menüsü -->
+    <section class="main-menu-container">
+        <a href="{{ url_for('profile') }}" class="list-item">
+            <span><i class="fas fa-user-circle"></i> Profile</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="{{ url_for('deposit_records') }}" class="list-item">
+            <span><i class="fas fa-file-invoice-dollar"></i> Deposit records</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="{{ url_for('withdrawal_records') }}" class="list-item">
+            <span><i class="fas fa-receipt"></i> Withdrawal records</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="{{ url_for('settings') }}" class="list-item">
+            <span><i class="fas fa-cog"></i> Setting</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </section>
+</main>
+{% endblock %}

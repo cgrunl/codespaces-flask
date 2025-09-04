@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}Takımım{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Geri Oku - Bu sayfanın özel bir başlık stili var, header bloğuna dahil değil -->
+    <a href="{{ url_for('mine') }}" class="standalone-back-arrow"><i class="fas fa-chevron-left"></i></a>
+
+    <!-- Üstteki turuncu istatistik alanı -->
+    <section class="teams-header">
+        <div class="header-content">
+            <h1>Teams</h1>
+            <h2>Team amount</h2>
+            <p class="team-amount">0</p>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Agent Profit</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Total recharge</div>
+            </div>
+             <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Total withdraw</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Order commission</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Newcomers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Activities number</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Team amount</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Team number</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seviyeler arası geçişi sağlayan sekmeler -->
+    <nav class="tab-nav">
+        <a href="#" class="tab-item active">Level 1</a>
+        <a href="#" class="tab-item">Level 2</a>
+        <a href="#" class="tab-item">Level 3</a>
+    </nav>
+    
+    <!-- Takım üyelerinin listeleneceği alan -->
+    <div class="tab-content">
+        <p class="no-data-message">No data</p>
+    </div>
+</main>
+{% endblock %}

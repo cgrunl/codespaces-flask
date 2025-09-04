@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}Customer Service{% endblock %}
+
+{% block content %}
+<main>
+    <!--
+        Üst kısımdaki büyük görsel. 
+        Bu görselin linkini, daha kalıcı olması için bir resim barındırma sitesine (image hosting) yükleyip kullandım.
+    -->
+    <img src="https://i.ibb.co/L5QyJcT/customer-service-header.png" alt="Customer Service Representative" class="service-header-image">
+
+    <!-- Yardım linklerini içeren liste -->
+    <div class="main-menu-container content">
+         <a href="#" class="list-item">
+            <span><i class="fas fa-headset"></i> Online customer service</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+         <a href="#" class="list-item">
+            <span><i class="fas fa-question-circle"></i> Help</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+</main>
+{% endblock %}

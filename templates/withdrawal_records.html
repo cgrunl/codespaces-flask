@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Para Çekme Geçmişi{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Standart sayfa başlığı -->
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Withdrawal records</h1>
+    </header>
+
+    <!-- Kayıtların listelendiği ana alan -->
+    <div class="content">
+        
+        <!--
+            Bu bölüm ileride veritabanından çekilen para çekme kayıtlarıyla
+            dinamik olarak doldurulacak. Şimdilik 'records' listesi boş
+            olduğu için 'else' bloğu çalışacak.
+        -->
+        {% for record in records %}
+        <div class="record-item">
+            <div class="record-details">
+                <p class="record-title">Withdrawal <span class="record-status {{ record.status }}">{{ record.status }}</span></p>
+                <p class="record-id">{{ record.id }}</p>
+            </div>
+            <div class="record-info">
+                <p class="record-amount withdrawal">- {{ "%.2f"|format(record.amount) }} USDT</p>
+                <p class="record-timestamp">{{ record.timestamp }}</p>
+            </div>
+        </div>
+        {% else %}
+        <!-- Henüz para çekme işlemi olmadığı için bu mesaj gösterilecek -->
+        <p class="no-data-message">No withdrawal records found.</p>
+        {% endfor %}
+
+        <p class="no-data-message">No more</p>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}Ana Sayfa{% endblock %}
+
+{% block content %}
+
+<!-- Home sayfasına özel üst bar -->
+<header class="home-header">
+    <img src="https://i.ibb.co/8mrw4Wz/logo-placeholder.png" alt="Logo" class="logo">
+    <!-- Buraya dil seçeneği gibi başka ikonlar eklenebilir -->
+</header>
+
+<main>
+    <!-- Üstteki hızlı erişim ikonları -->
+    <section class="home-quick-actions">
+        <a href="{{ url_for('deposit') }}">
+            <i class="fas fa-wallet"></i>
+            <span>Recharge</span>
+        </a>
+        <a href="#"> <!-- Henüz para çekme linki yok -->
+            <i class="fas fa-hand-holding-usd"></i>
+            <span>Withdrawal</span>
+        </a>
+        <a href="{{ url_for('teams') }}">
+            <i class="fas fa-users"></i>
+            <span>Teams</span>
+        </a>
+        <a href="{{ url_for('invite') }}">
+            <i class="fas fa-user-plus"></i>
+            <span>Invitation</span>
+        </a>
+    </section>
+
+    <!--
+        Bu kısım "m*******7 successful 37.06 USDT" gibi bildirimlerin
+        dinamik olarak gösterileceği yer olabilir. Şimdilik statik.
+    -->
+    <section class="notification-bar">
+        <i class="fas fa-bullhorn"></i>
+        <span>m*******7 successful <strong>37.06 USDT</strong></span>
+    </section>
+    
+    <!-- Platform tanıtım kartları -->
+    <section class="platform-intro content">
+        <h2 class="section-title">Platform Introduction</h2>
+        <div class="intro-cards">
+            <a href="#" class="intro-card">
+                <img src="https://i.ibb.co/wJjV2J0/platform-profile.jpg" alt="Platform Profile">
+                <div class="intro-card-content">
+                    <h3>Platform profile</h3>
+                    <p>MALL is an intelligent cloud global order matching cente...</p>
+                </div>
+            </a>
+            <a href="#" class="intro-card">
+                <img src="https://i.ibb.co/2vcmh0N/platform-rules.jpg" alt="Platform Rules">
+                <div class="intro-card-content">
+                    <h3>Platform rules</h3>
+                    <p>About recharge: [The platform will change the recharge...</p>
+                </div>
+            </a>
+            <a href="#" class="intro-card">
+                <img src="https://i.ibb.co/k3tTj0V/win-win.jpg" alt="Win-win cooperation">
+                <div class="intro-card-content">
+                    <h3>Win-win cooperation</h3>
+                    <p>At MALL, we carry out win-win cooperation for all user...</p>
+                </div>
+            </a>
+            <a href="#" class="intro-card">
+                <img src="https://i.ibb.co/K2TKyq2/instructions.jpg" alt="Instructions for use">
+                <div class="intro-card-content">
+                    <h3>Instructions for use</h3>
+                    <p>To celebrate the MALL membership surpassing...</p>
+                </div>
+            </a>
+        </div>
+    </section>
+</main>
+{% endblock %}

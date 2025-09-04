@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>{% block title %}Proje Adı{% endblock %}</title>
+    
+    <!-- İkonlar için Font Awesome Kütüphanesi -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- Projemizin ana stil dosyası -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!--
+        Bu container, sitemizin mobil uygulama gibi görünmesini sağlar.
+        Genişliği CSS'te sabitlenmiştir.
+    -->
+    <div class="container">
+        <!--
+            Bu content bloğunun içine diğer tüm HTML sayfalarının içeriği gelecektir.
+            Her sayfa bu ana şablonu kullanacak.
+        -->
+        {% block content %}{% endblock %}
+    </div>
+
+    <!--
+        Bu navigasyon menüsü, sadece "active_page" değişkeni gönderilen
+        sayfalarda (yani giriş yapıldıktan sonraki ana sayfalarda) görünecektir.
+        Giriş ve kayıt sayfalarında bu menü olmayacak.
+    -->
+    {% if active_page is defined %}
+    <nav class="bottom-nav">
+        <a href="{{ url_for('home') }}" class="nav-item {{ 'active' if active_page == 'home' }}">
+            <i class="fas fa-home"></i><span>Home</span>
+        </a>
+        <a href="{{ url_for('service') }}" class="nav-item {{ 'active' if active_page == 'service' }}">
+            <i class="fas fa-headset"></i><span>Service</span>
+        </a>
+        <a href="{{ url_for('menu') }}" class="nav-item {{ 'active' if active_page == 'menu' }}">
+            <i class="fas fa-store"></i><span>Menu</span>
+        </a>
+        <a href="{{ url_for('tasks_record') }}" class="nav-item {{ 'active' if active_page == 'record' }}">
+            <i class="fas fa-clipboard-list"></i><span>Record</span>
+        </a>
+        <a href="{{ url_for('mine') }}" class="nav-item {{ 'active' if active_page == 'mine' }}">
+            <i class="fas fa-user"></i><span>Mine</span>
+        </a>
+    </nav>
+    {% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}Menu{% endblock %}
+
+{% block content %}
+
+<!-- Sayfa başlığı -->
+<header class="page-header">
+    <h1>Menu</h1>
+</header>
+
+<main>
+    <!-- VIP Seviyesi filtreleme sekmeleri -->
+    <nav class="tab-nav">
+        <a href="#" class="tab-item active">All</a>
+        {% for level in levels %}
+            <a href="#" class="tab-item">VIP {{ level.level }}</a>
+        {% endfor %}
+    </nav>
+
+    <!-- VIP seviyelerinin listelendiği alan -->
+    <div class="vip-list content">
+        {% for level in levels %}
+        <!--
+            Her bir kart, ilgili görev detay sayfasına yönlendirir.
+            url_for('task_detail', level_id=level.level) -> /task_detail/1, /task_detail/2 vb.
+        -->
+        <a href="{{ url_for('task_detail', level_id=level.level) }}" class="vip-level-card">
+            <div class="logo-container">
+                <!-- Veritabanından gelen logo_url'sini kullanıyoruz -->
+                <img src="{{ level.logo_url }}" alt="{{ level.name }} Logo">
+            </div>
+            <div class="vip-info">
+                <span class="vip-badge-label">VIP {{ level.level }}</span>
+                <h3>{{ level.name }}</h3>
+                <p>Available balance: {{ "%.0f"|format(level.min_balance) }} USDT - {{ "%.0f"|format(level.max_balance) }} USDT</p>
+                <p class="commission">Commissions: {{ "%.0f"|format(level.commission_rate) }}%</p>
+            </div>
+        </a>
+        {% else %}
+        <!-- Veritabanında hiç seviye bulunamazsa bu mesaj gösterilir -->
+        <p class="no-data-message">No VIP levels found.</p>
+        {% endfor %}
+
+        <p class="no-data-message">No more</p>
+    </div>
+</main>
+{% endblock %}

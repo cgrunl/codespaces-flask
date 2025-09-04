@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Görev Kayıtları{% endblock %}
+
+{% block content %}
+
+<!-- Sayfa başlığı -->
+<header class.="page-header">
+    <h1>Record</h1>
+</header>
+
+<main>
+    <!-- Tamamlanmış ve Tamamlanmamış görevler arası geçiş yapmayı sağlayan sekmeler -->
+    <nav class="tab-nav">
+        <a href="#" class="tab-item active">Incomplete</a>
+        <a href="#" class="tab-item">Complete</a>
+    </nav>
+    
+    <!--
+        Sekmelerin içeriğinin gösterileceği alan.
+        Bu kısım ileride JavaScript ile veya farklı sayfalar oluşturularak dinamik hale getirilebilir.
+        Şimdilik statik bir "Veri yok" mesajı gösteriyor.
+    -->
+    <div class="tab-content">
+        <p class="no-data-message">No more</p>
+    </div>
+</main>
+{% endblock %}

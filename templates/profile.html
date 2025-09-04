@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Profil Ayarları{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Standart sayfa başlığı -->
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Profile</h1>
+    </header>
+
+    <!-- Ayar seçeneklerini içeren liste -->
+    <div class="main-menu-container content">
+        <a href="#" class="list-item">
+            <span>Personal Avatar</span>
+            <div class="avatar-preview">
+                <!--
+                    Buradaki avatar, kullanıcının mevcut avatarını gösterir.
+                    Tıklandığında avatar değiştirme işlemi başlatılabilir.
+                -->
+                <img src="https://i.ibb.co/8mrw4Wz/logo-placeholder.png" alt="Avatar" class="list-avatar">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </a>
+    </div>
+</main>
+{% endblock %}

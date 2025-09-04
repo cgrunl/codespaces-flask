@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ texts.register_title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>{{ texts.register_header }}</h1>
+        </div>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form class="login-form" method="POST" action="/register">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" name="username" placeholder="{{ texts.username_placeholder }}" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" placeholder="{{ texts.password_placeholder }}" required>
+            </div>
+            <!-- YENİ ALANLAR -->
+            <div class="input-group">
+                <i class="fas fa-shield-alt"></i>
+                <input type="password" name="fund_password" placeholder="{{ texts.fund_password_placeholder }}" required pattern="\d{6}" title="İşlem şifresi 6 haneli rakam olmalıdır.">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-key"></i>
+                <input type="text" name="invitation_code" placeholder="{{ texts.invitation_code_placeholder }}" required>
+            </div>
+            <!-- YENİ ALANLAR BİTTİ -->
+            <button type="submit" class="login-button">{{ texts.register_button }}</button>
+        </form>
+        <div class="register-link">
+            <p>{{ texts.has_account }} <a href="{{ url_for('index') }}">{{ texts.login_now }}</a></p>
+        </div>
+    </div>
+</body>
+</html>

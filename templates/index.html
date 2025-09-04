@@ -1,19 +1,84 @@
+<!DOCTYPE html>
+<html lang="{{ current_lang }}">
 <head>
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ texts.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
-    <div class="App">
-        <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
-        </header>
+    <!-- DİL SEÇİCİ -->
+    <div class="language-switcher">
+        <div class="selected-language">
+            <img src="{{ current_flag }}" alt="{{ current_lang }}">
+            <span>{{ current_lang.upper() }}</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <ul class="language-dropdown">
+            <li>
+                <a href="/lang/tr">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/tr.svg" alt="TR">
+                    <span>Türkçe</span>
+                </a>
+            </li>
+            <li>
+                <a href="/lang/en">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/us.svg" alt="EN">
+                    <span>English</span>
+                </a>
+            </li>
+        </ul>
     </div>
-</body>
 
+    <div class="login-container">
+        <!-- KAYIT SONRASI BAŞARI/HATA MESAJLARI İÇİN ALAN -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <div class="login-header">
+            <h1>{{ texts.welcome_header }}</h1>
+            <p>{{ texts.welcome_p }}</p>
+        </div>
+        <form class="login-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="{{ texts.username_placeholder }}" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="{{ texts.password_placeholder }}" required>
+            </div>
+            <div class="input-group captcha-group">
+                <i class="fas fa-shield-alt"></i>
+                <input type="text" placeholder="{{ texts.captcha_placeholder }}" required>
+                <div class="captcha-code">{{ captcha }}</div>
+            </div>
+            <div class="form-options">
+                <label class="remember-me">
+                    <input type="checkbox">
+                    <span>{{ texts.remember_me }}</span>
+                </label>
+            </div>
+            <button type="submit" class="login-button">{{ texts.login_button }}</button>
+        </form>
+        <div class="register-link">
+            <!-- KAYIT SAYFASINA GİDEN DOĞRU LİNK -->
+            <p>{{ texts.no_account }} <a href="{{ url_for('register') }}">{{ texts.register_now }}</a></p>
+        </div>
+    </div>
+
+    <!-- Dil menüsünü açıp kapatmak için basit bir JavaScript -->
+    <script>
+        document.querySelector('.selected-language').addEventListener('click', function() {
+            document.querySelector('.language-dropdown').classList.toggle('active');
+        });
+    </script>
+</body>
 </html>

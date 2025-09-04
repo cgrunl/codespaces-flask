@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Ayarlar{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Standart sayfa başlığı -->
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Setting</h1>
+    </header>
+
+    <!-- Ayar seçeneklerini içeren liste -->
+    <div class="main-menu-container content">
+        <a href="#" class="list-item">
+            <span><i class="fas fa-globe"></i> Language settings</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <!--
+        Bu Çıkış Yap butonu, diğer menü elemanlarından ayrı durması için
+        liste dışında ve kendi özel stiliyle yer alıyor.
+    -->
+    <div class="logout-section">
+        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+    </div>
+
+</main>
+{% endblock %}

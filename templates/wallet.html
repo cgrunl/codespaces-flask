@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Cüzdan Yönetimi{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Standart sayfa başlığı -->
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Wallet management</h1>
+    </header>
+
+    <div class="content wallet-container">
+        <!-- Sanal para birimi etiketi -->
+        <div class="wallet-header">
+            <a href="#" class="currency-tag">virtual currency</a>
+        </div>
+
+        <!-- 
+            Bu alan, cüzdanlar eklendikten sonra listelenecekleri yerdir.
+            Şu an için, ekran görüntüsündeki gibi boş durumu temsil ediyor.
+        -->
+        <div class="empty-state">
+            <!-- Ekran görüntüsündeki dönen ikonun temsili -->
+            <div class="loading-placeholder">
+                <span>(</span><span>)</span>
+            </div>
+
+            <a href="#" class="button add-wallet-button">Add e-wallet</a>
+        </div>
+
+        <p class="wallet-tip">Tips: Bind at most 1 group accounts.</p>
+
+    </div>
+</main>
+{% endblock %}
