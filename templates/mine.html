@@ -4,10 +4,20 @@
 
 {% block content %}
 <main>
+    <!-- YENİ: Hata/Başarı Mesajlarının Gösterileceği Alan -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     <!-- Üstteki turuncu kullanıcı bilgi alanı -->
     <header class="mine-header">
         <div class="user-info">
-            <!-- Avatar'ı her kullanıcı için farklı göstermek için bir placeholder servisi kullandım -->
             <img src="https://i.pravatar.cc/150?u={{ user.username }}" alt="Avatar" class="avatar">
             <div class="user-details">
                 <span class="username">
@@ -19,49 +29,35 @@
         </div>
         <div class="account-balance">
             <h2>My Account</h2>
-            <!-- "%.2f"|format() filtresi, sayıyı 2 ondalık basamakla gösterir (örn: 0.00) -->
             <p class="balance">USDT {{ "%.2f"|format(user.balance) }}</p>
         </div>
         
-        <!--
-            Bu bölüm, ekran görüntüsündeki gibi başlığın içine gömülü,
-            yatayda hizalanmış Para Yatırma ve Çekme butonlarıdır.
-            (Not: CSS ile bu bölüm daha sonra en alta taşınarak farklı bir görünüm de alabilir)
-        -->
-        <div class="header-main-actions">
+        <div class="mine-header-actions">
             <a href="{{ url_for('deposit') }}" class="action-item">
                 <i class="fas fa-wallet"></i>
                 <span>Deposit</span>
             </a>
-            <a href="#" class="action-item"> <!-- Para çekme sayfası henüz yok -->
+            <a href="{{ url_for('withdrawal') }}" class="action-item">
                 <i class="fas fa-hand-holding-usd"></i>
                 <span>Withdrawal</span>
             </a>
         </div>
     </header>
 
-    <!-- Hızlı erişim menüsü (başlığın altındaki beyaz kutu) -->
-    <section class="quick-menu-grid">
-        <a href="{{ url_for('teams') }}" class="menu-item">
-            <i class="fas fa-users"></i>
-            <span>Teams</span>
-        </a>
-        <a href="{{ url_for('tasks_record') }}" class="menu-item">
-            <i class="fas fa-clipboard-list"></i>
-            <span>Record</span>
-        </a>
-        <a href="{{ url_for('wallet') }}" class="menu-item">
-            <i class="fas fa-credit-card"></i>
-            <span>Wallet management</span>
-        </a>
-        <a href="{{ url_for('invite') }}" class="menu-item">
-            <i class="fas fa-user-plus"></i>
-            <span>Invite friends</span>
-        </a>
-    </section>
-    
-    <!-- Link listesi menüsü -->
+    <!-- Hızlı erişim menüsü -->
     <section class="main-menu-container">
+        <a href="{{ url_for('teams') }}" class="list-item">
+            <span><i class="fas fa-users"></i> Teams</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+         <a href="{{ url_for('wallet') }}" class="list-item">
+            <span><i class="fas fa-credit-card"></i> Wallet management</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="{{ url_for('invite') }}" class="list-item">
+            <span><i class="fas fa-user-plus"></i> Invite friends</span>
+            <i class="fas fa-chevron-right"></i>
+        </a>
         <a href="{{ url_for('profile') }}" class="list-item">
             <span><i class="fas fa-user-circle"></i> Profile</span>
             <i class="fas fa-chevron-right"></i>
@@ -75,9 +71,11 @@
             <i class="fas fa-chevron-right"></i>
         </a>
         <a href="{{ url_for('settings') }}" class="list-item">
-            <span><i class="fas fa-cog"></i> Setting</span>
+            <span><i class="fas fa-cog"></i> {{ text['setting'] }}</span>
             <i class="fas fa-chevron-right"></i>
         </a>
     </section>
+
+     <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
 </main>
 {% endblock %}

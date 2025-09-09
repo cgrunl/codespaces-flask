@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}Depozito Detayları{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <a href="{{ url_for('deposit') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+    <h1>Deposit</h1>
+</header>
+<main>
+    <div class="deposit-details-container">
+        <p>Ağ - TRON (TRC-20)</p>
+        <p class="amount">{{ "%.2f"|format(transaction.amount) }} USDT</p>
+        
+        <div class="flash-error" style="background-color: #ffebee; color: #c62828; margin: 15px 0;">Ödenmemiş bir siparişiniz var</div>
+
+        <p><strong>Lütfen aşağıdaki adrese transfer yapın:</strong></p>
+
+        <div class="wallet-address-box">
+            <p class="wallet-address" id="wallet-address-text">{{ wallet_address }}</p>
+            <button class="copy-btn" onclick="copyAddress()">Kopyala</button>
+        </div>
+
+        <p>Ödeme bekleniyor...</p>
+
+        <div class="hints">
+            <h3>İpuçları:</h3>
+            <ol>
+                <li>Şarj adresiniz <strong>tek kullanımlıktır</strong>, lütfen adresinizi bırakmayın veya tekrar tekrar taşımayın.</li>
+                <li>Minimum yükleme tutarı, gerçek transfer tutarına bağlı olup, en az <strong>5 USDT'dir</strong>.</li>
+                <li>Yüklemenin ardından ödemenin onaylanması yaklaşık <strong>1-2 dakika</strong> sürecektir. Lütfen sabırla bekleyin.</li>
+                <li>Ödemeyi tamamladıktan sonra, işleminizi hızlandırmak için lütfen 'Service' sayfasından müşteri hizmetleri ile iletişime geçin.</li>
+            </ol>
+        </div>
+    </div>
+</main>
+
+<script>
+    function copyAddress() {
+        const addressText = document.getElementById('wallet-address-text').innerText;
+        navigator.clipboard.writeText(addressText).then(function() {
+            alert('Cüzdan adresi kopyalandı!');
+        }, function(err) {
+            alert('Kopyalama başarısız oldu: ', err);
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Cüzdan Ekle{% endblock %}
+
+{% block content %}
+<main>
+    <header class="page-header">
+        <a href="{{ url_for('wallet') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Add e-wallet</h1>
+    </header>
+
+    <div class="content">
+        <form class="auth-form" method="POST" action="{{ url_for('add_wallet') }}">
+            <div class="input-group">
+                <i class="fas fa-file-signature"></i>
+                <input type="text" name="name" placeholder="Wallet name (e.g., My Binance)" required>
+            </div>
+            <div class="input-group">
+                <i class="fab fa-ethereum"></i>
+                <input type="text" name="protocol" placeholder="Protocol (e.g., TRC-20)" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-wallet"></i>
+                <input type="text" name="address" placeholder="Wallet address" required>
+            </div>
+            <button type="submit" class="btn-primary" style="margin-top:10px;">Add Wallet</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

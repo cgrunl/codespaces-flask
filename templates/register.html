@@ -9,7 +9,6 @@
         <p>Sign up for a new account</p>
     </div>
 
-    <!-- Hata veya başarı mesajları bu alanda gösterilecek -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
@@ -29,14 +28,13 @@
         </div>
         <div class="input-group">
             <i class="fas fa-key"></i>
-            <!-- 'required' niteliği kaldırıldı, bu alan artık isteğe bağlı -->
             <input type="text" name="invitation_code" placeholder="Invitation Code (Optional)">
         </div>
-        <button type="submit" class="auth-button">Sign Up</button>
+        <button type="submit" class="btn-primary" style="margin-top: 10px;">Sign Up</button>
     </form>
     
     <div class="auth-footer">
-        <p>Already have an account? <a href="{{ url_for('login') }}">Sign In</a></p>
+        <p>{{ text['have_account_prompt'] }} <a href="{{ url_for('login') }}">{{ text['signin_link'] }}</a></p>
     </div>
 </div>
 {% endblock %}

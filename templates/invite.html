@@ -1,40 +1,34 @@
 {% extends "layout.html" %}
-
 {% block title %}Arkadaşlarını Davet Et{% endblock %}
-
 {% block content %}
 <main>
-    <!-- Standart sayfa başlığı -->
     <header class="page-header">
         <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
         <h1>Invite friends</h1>
     </header>
-
     <div class="invite-container content">
         <p class="code-label">My invitation code</p>
-        
-        <!-- app.py'den gönderilen kullanıcının davet kodu -->
         <h2 class="invitation-code">{{ user.invitation_code }}</h2>
-
-        <!-- 
-            Bu QR kodunu daha sonra bir kütüphane ile dinamik olarak üreteceğiz.
-            Şimdilik statik bir placeholder (yer tutucu) kullanıyoruz.
-        -->
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ url_for('register', _external=True) }}?code={{ user.invitation_code }}" alt="QR Code" class="qr-code">
-        
         <p class="qr-note">Long press to save the QR code</p>
-
         <div class="share-link-box">
             <div>
                 <span>Share link</span>
-                <a href="#" class="copy-button">Copy</a>
+                <a href="#" class="copy-button" onclick="copyLink(event)">Copy</a>
             </div>
-            <!--
-                Bu link, sitemiz yayınlandığında dinamik olarak doğru adresi alacak.
-                _external=True parametresi, "http://siteadi.com/register..." gibi tam bir URL üretir.
-            -->
-            <p class="share-link-url">{{ url_for('register', _external=True) }}?code={{ user.invitation_code }}</p>
+            <p class="share-link-url" id="share-link">{{ url_for('register', _external=True) }}?code={{ user.invitation_code }}</p>
         </div>
     </div>
 </main>
+<script>
+    function copyLink(event) {
+        event.preventDefault();
+        const linkText = document.getElementById('share-link').innerText;
+        navigator.clipboard.writeText(linkText).then(function() {
+            alert('Link kopyalandı!');
+        }, function(err) {
+            alert('Kopyalama başarısız oldu.');
+        });
+    }
+</script>
 {% endblock %}

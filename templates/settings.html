@@ -1,30 +1,26 @@
 {% extends "layout.html" %}
 
-{% block title %}Ayarlar{% endblock %}
+{% block title %}{{ text['setting'] }}{% endblock %}
 
 {% block content %}
 <main>
-    <!-- Standart sayfa başlığı -->
     <header class="page-header">
         <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
-        <h1>Setting</h1>
+        <h1>{{ text['setting'] }}</h1>
     </header>
-
-    <!-- Ayar seçeneklerini içeren liste -->
     <div class="main-menu-container content">
-        <a href="#" class="list-item">
-            <span><i class="fas fa-globe"></i> Language settings</span>
-            <i class="fas fa-chevron-right"></i>
-        </a>
+        <h3>{{ text['language_settings'] }}</h3>
+        {% for language in languages %}
+            <a href="{{ url_for('set_language', lang=language.code) }}" class="list-item">
+                <span><span class="flag-icon flag-icon-{{ language.flag }}"></span> {{ language.name }}</span>
+                {% if lang == language.code %}
+                    <i class="fas fa-check" style="color: var(--success-color);"></i>
+                {% endif %}
+            </a>
+        {% endfor %}
     </div>
-
-    <!--
-        Bu Çıkış Yap butonu, diğer menü elemanlarından ayrı durması için
-        liste dışında ve kendi özel stiliyle yer alıyor.
-    -->
-    <div class="logout-section">
-        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+    <div style="padding: 0 15px;">
+        <a href="{{ url_for('logout') }}" class="btn-primary" style="background: var(--danger-color); box-shadow:none;">Logout</a>
     </div>
-
 </main>
 {% endblock %}

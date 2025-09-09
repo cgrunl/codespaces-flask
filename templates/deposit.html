@@ -4,62 +4,58 @@
 
 {% block content %}
 
-<!-- Standart sayfa başlığı -->
 <header class="page-header">
     <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
     <h1>Deposit</h1>
 </header>
 
 <main class="content">
-    <form>
-        <!-- Ödeme Metodu Seçimi -->
+    <form method="POST" action="{{ url_for('deposit') }}">
         <div class="form-section">
             <h3>Payment method</h3>
-            <div class="option-group">
-                <div class="option-box selected">
-                    USDT
-                    <div class="check-icon"><i class="fas fa-check"></i></div>
-                </div>
+            <div class="option-box">
+                <img src="/static/images/usdt_logo.png" alt="USDT">
+                <span>USDT</span>
             </div>
         </div>
 
-        <!-- Protokol Seçimi -->
         <div class="form-section">
             <h3>Select the protocol to use</h3>
-            <div class="option-group">
-                <div class="option-box selected">
-                    TRC-20
-                    <div class="check-icon"><i class="fas fa-check"></i></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Para Birimi Seçimi (Bu kısım SS'te vardı, mantığı daha sonra eklenebilir) -->
-        <div class="form-section">
-            <h3>Currency selection</h3>
-            <div class="option-group">
-                <div class="option-box selected">
-                    ALL
-                    <div class="check-icon"><i class="fas fa-check"></i></div>
-                </div>
+             <div class="option-box">
+                <img src="/static/images/trc20_logo.png" alt="TRC-20">
+                <span>TRC-20</span>
             </div>
         </div>
 
-        <!-- Miktar Giriş Alanı -->
         <div class="form-section">
             <h3>Deposit amount</h3>
-            <input type="number" class="deposit-amount-input" placeholder="0">
-            <p class="deposit-note">USDT Deposit amount must be greater than 0.1 USDT</p>
-        </div>
-
-        <div class="deposit-info">
-            <p>Estimated payment: <strong>USDT</strong></p>
-            <p>Reference rate: 1 USDT ≈ 1 USDT</p>
-            <p>The payment amount and exchange rate are subject to the actual payment</p>
+            <input type="number" name="amount" id="amount-input" class="deposit-amount-input" placeholder="0.00" step="0.01" min="0.1" required>
+            <p class="deposit-note">Minimum deposit amount is 5
+                 USDT</p>
         </div>
         
-        <!-- Sabitlenmiş Onay Butonu -->
-        <button type="submit" class="bottom-fixed-button">Deposit now</button>
+        <button type="submit" id="deposit-btn" class="btn-primary" disabled>Deposit now</button>
     </form>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const amountInput = document.getElementById('amount-input');
+        const depositBtn = document.getElementById('deposit-btn');
+        const minAmount = 0.1;
+
+        amountInput.addEventListener('input', function() {
+            try {
+                const amount = parseFloat(this.value);
+                if (amount >= minAmount) {
+                    depositBtn.disabled = false;
+                } else {
+                    depositBtn.disabled = true;
+                }
+            } catch (e) {
+                depositBtn.disabled = true;
+            }
+        });
+    });
+</script>
 {% endblock %}

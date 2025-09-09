@@ -1,41 +1,61 @@
 {% extends "layout.html" %}
 
-{% block title %}Giriş Yap{% endblock %}
+{% block title %}{{ text['signin_button'] }}{% endblock %}
 
 {% block content %}
+<div class="top-right-language-selector">
+    <span class="flag-icon flag-icon-{{ (languages|selectattr('code', 'equalto', lang)|first).flag }}"></span>
+    <select id="language-switcher">
+        {% for language in languages %}
+            <option value="{{ language.code }}" {% if lang == language.code %}selected{% endif %}>
+                {{ language.code.upper() }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+
 <div class="auth-container">
     <div class="auth-header">
-        <h1>Welcome Back!</h1>
-        <p>Sign in to your account</p>
+        <h1>{{ text['welcome'] }}</h1>
+        <p>{{ text['signin_prompt'] }}</p>
     </div>
     
-    <!-- Python (Flask) tarafından gönderilen başarı veya hata mesajları burada gösterilir -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
+        <div class="flash-messages">
         {% for category, message in messages %}
           <div class="flash-{{ category }}">{{ message }}</div>
         {% endfor %}
+        </div>
       {% endif %}
     {% endwith %}
 
-    <!-- 
-        method="POST": Form verilerini gizli olarak gönderir.
-        action="{{ url_for('login') }}": Form gönderildiğinde app.py'deki 'login' fonksiyonunu tetikler.
-    -->
     <form class="auth-form" method="POST" action="{{ url_for('login') }}">
         <div class="input-group">
             <i class="fas fa-user"></i>
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="username" placeholder="{{ text['username_placeholder'] }}" required>
         </div>
         <div class="input-group">
             <i class="fas fa-lock"></i>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="password" placeholder="{{ text['password_placeholder'] }}" required>
         </div>
-        <button type="submit" class="auth-button">Sign In</button>
+        <div class="captcha-group">
+            <input type="text" name="captcha" placeholder="{{ text['security_code_placeholder'] }}" required>
+            <img src="{{ captcha_image }}" alt="Captcha" class="captcha-image">
+        </div>
+        <button type="submit" class="btn-primary" style="margin-top: 10px;">{{ text['signin_button'] }}</button>
     </form>
     
     <div class="auth-footer">
-        <p>Don't have an account? <a href="{{ url_for('register') }}">Sign Up</a></p>
+        <p>{{ text['no_account_prompt'] }} <a href="{{ url_for('register') }}">{{ text['signup_link'] }}</a></p>
     </div>
 </div>
+
+<script>
+    document.getElementById('language-switcher').addEventListener('change', function() {
+        var selectedLanguage = this.value;
+        var redirectUrl = "{{ url_for('set_language', lang='REPLACE_ME') }}".replace('REPLACE_ME', selectedLanguage);
+        window.location.href = redirectUrl;
+    });
+</script>
 {% endblock %}

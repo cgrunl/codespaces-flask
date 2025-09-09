@@ -4,75 +4,59 @@
 
 {% block content %}
 
-<!-- Home sayfasına özel üst bar -->
 <header class="home-header">
-    <img src="https://i.ibb.co/8mrw4Wz/logo-placeholder.png" alt="Logo" class="logo">
-    <!-- Buraya dil seçeneği gibi başka ikonlar eklenebilir -->
+    <!-- GÜNCELLEME: Görsel artık projenizin içinden çağrılıyor -->
+    <img src="{{ url_for('static', filename='images/logo_placeholder.png') }}" alt="Logo" class="logo">
+    <a href="{{ url_for('settings') }}" class="settings-icon"><i class="fas fa-cog"></i></a>
 </header>
 
 <main>
-    <!-- Üstteki hızlı erişim ikonları -->
+    <!-- Renkli, dairesel ikonlu butonlar -->
     <section class="home-quick-actions">
-        <a href="{{ url_for('deposit') }}">
-            <i class="fas fa-wallet"></i>
-            <span>Recharge</span>
+        <a href="{{ url_for('deposit') }}" class="action-link">
+            <div class="icon-wrapper icon-recharge"><i class="fas fa-wallet"></i></div>
+            <span>Şarj et</span>
         </a>
-        <a href="#"> <!-- Henüz para çekme linki yok -->
-            <i class="fas fa-hand-holding-usd"></i>
-            <span>Withdrawal</span>
+        <a href="{{ url_for('withdrawal') }}" class="action-link">
+            <div class="icon-wrapper icon-withdrawal"><i class="fas fa-hand-holding-usd"></i></div>
+            <span>Para çekme</span>
         </a>
-        <a href="{{ url_for('teams') }}">
-            <i class="fas fa-users"></i>
-            <span>Teams</span>
+        <a href="{{ url_for('teams') }}" class="action-link">
+            <div class="icon-wrapper icon-teams"><i class="fas fa-users"></i></div>
+            <span>Takımlar</span>
         </a>
-        <a href="{{ url_for('invite') }}">
-            <i class="fas fa-user-plus"></i>
-            <span>Invitation</span>
+        <a href="{{ url_for('invite') }}" class="action-link">
+            <div class="icon-wrapper icon-invitation"><i class="fas fa-user-plus"></i></div>
+            <span>Davet</span>
         </a>
     </section>
 
-    <!--
-        Bu kısım "m*******7 successful 37.06 USDT" gibi bildirimlerin
-        dinamik olarak gösterileceği yer olabilir. Şimdilik statik.
-    -->
     <section class="notification-bar">
         <i class="fas fa-bullhorn"></i>
-        <span>m*******7 successful <strong>37.06 USDT</strong></span>
+        <span>{{ notification.user }} başarılı <strong>{{ notification.amount }} USDT</strong></span>
     </section>
     
-    <!-- Platform tanıtım kartları -->
     <section class="platform-intro content">
-        <h2 class="section-title">Platform Introduction</h2>
+        <h2 class="section-title">Platform Tanıtımı</h2>
         <div class="intro-cards">
-            <a href="#" class="intro-card">
-                <img src="https://i.ibb.co/wJjV2J0/platform-profile.jpg" alt="Platform Profile">
+             <a href="#" class="intro-card">
+                <!-- GÜNCELLEME: Görsel artık projenizin içinden çağrılıyor -->
+                <img src="{{ url_for('static', filename='images/platform_profile.png') }}" alt="Platform Profile">
                 <div class="intro-card-content">
-                    <h3>Platform profile</h3>
-                    <p>MALL is an intelligent cloud global order matching cente...</p>
+                    <h3>PLATFORM EARNINGS</h3>
+                    <p>PLATORFM EARNINGS PROGRESS WITHIN THE FRAMEWORK OF COMMISSIONS, AND WE EARN COMMISSIONS BY PERFORMING DUTY, THIS IS HOW WE EARN COMMISSIONS.</p>
                 </div>
             </a>
             <a href="#" class="intro-card">
-                <img src="https://i.ibb.co/2vcmh0N/platform-rules.jpg" alt="Platform Rules">
+                <!-- GÜNCELLEME: Görsel artık projenizin içinden çağrılıyor -->
+                <img src="{{ url_for('static', filename='images/platform_rules.png') }}" alt="Platform Rules">
                 <div class="intro-card-content">
-                    <h3>Platform rules</h3>
-                    <p>About recharge: [The platform will change the recharge...</p>
-                </div>
-            </a>
-            <a href="#" class="intro-card">
-                <img src="https://i.ibb.co/k3tTj0V/win-win.jpg" alt="Win-win cooperation">
-                <div class="intro-card-content">
-                    <h3>Win-win cooperation</h3>
-                    <p>At MALL, we carry out win-win cooperation for all user...</p>
-                </div>
-            </a>
-            <a href="#" class="intro-card">
-                <img src="https://i.ibb.co/K2TKyq2/instructions.jpg" alt="Instructions for use">
-                <div class="intro-card-content">
-                    <h3>Instructions for use</h3>
-                    <p>To celebrate the MALL membership surpassing...</p>
+                    <h3>PLATFORM RULES</h3>
+                    <p>TO PERFORM A NEW TASK, PLEASE CHARGE. USE THE CHARGE BUTTON TO CHARGE. AFTER COMPLETING THE LOAD, CONTACT CUSTOMER SERVICE.</p>
                 </div>
             </a>
         </div>
     </section>
 </main>
 {% endblock %}
+

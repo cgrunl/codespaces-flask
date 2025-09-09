@@ -4,62 +4,31 @@
 
 {% block content %}
 <main>
-    <!-- Geri Oku - Bu sayfanın özel bir başlık stili var, header bloğuna dahil değil -->
-    <a href="{{ url_for('mine') }}" class="standalone-back-arrow"><i class="fas fa-chevron-left"></i></a>
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Teams</h1>
+    </header>
 
-    <!-- Üstteki turuncu istatistik alanı -->
-    <section class="teams-header">
-        <div class="header-content">
-            <h1>Teams</h1>
-            <h2>Team amount</h2>
-            <p class="team-amount">0</p>
-        </div>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Agent Profit</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Total recharge</div>
-            </div>
-             <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Total withdraw</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Order commission</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Newcomers</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Activities number</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Team amount</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-value">0</div>
-                <div class="stat-label">Team number</div>
-            </div>
-        </div>
+    <section class="teams-header" style="padding-bottom: 20px; text-align: left; padding-left: 30px;">
+        <p style="opacity: 0.8;">Team Members</p>
+         <h2 style="font-size: 32px;">{{ team_members|length }}</h2>
     </section>
 
-    <!-- Seviyeler arası geçişi sağlayan sekmeler -->
     <nav class="tab-nav">
         <a href="#" class="tab-item active">Level 1</a>
         <a href="#" class="tab-item">Level 2</a>
         <a href="#" class="tab-item">Level 3</a>
     </nav>
     
-    <!-- Takım üyelerinin listeleneceği alan -->
-    <div class="tab-content">
-        <p class="no-data-message">No data</p>
+    <div class="tab-content" style="padding:0;">
+        {% for member in team_members %}
+            <div class="list-item" style="padding: 15px;">
+                <span><i class="fas fa-user-circle" style="font-size: 18px;"></i> {{ member.username }}</span>
+                <span style="font-size: 12px; color: var(--text-light);">{{ member.created_at.strftime('%Y-%m-%d') }}</span>
+            </div>
+        {% else %}
+            <p class="no-data-message">No team members yet.</p>
+        {% endfor %}
     </div>
 </main>
 {% endblock %}

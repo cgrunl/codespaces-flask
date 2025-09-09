@@ -1,27 +1,23 @@
 /* ===================================================================
-   GENEL VE TEMEL STİLLER
+    GENEL VE TEMEL STİLLER
    =================================================================== */
 
 :root {
     --primary-color: #f9a825;
-    --primary-gradient: linear-gradient(to right, #f9a825, #fdd835);
-    --orange-bg: #f59e0b; /* SS'lerdeki turuncu tonu */
-    --text-dark: #333;
-    --text-light: #777;
+    --primary-gradient: linear-gradient(90deg, #f9a825 0%, #f59e0b 100%);
+    --orange-bg: #f59e0b; 
+    --text-dark: #2d3748;
+    --text-light: #718096;
     --text-white: #ffffff;
-    --bg-light: #f4f7f6;
+    --bg-light: #f7fafc;
     --bg-white: #ffffff;
-    --border-color: #f0f0f0;
-    --danger-color: #e74c3c;
-    --success-color: #28a745;
+    --border-color: #e2e8f0;
+    --danger-color: #e53e3e;
+    --success-color: #38a169;
+    --disabled-color: #e2e8f0;
 }
 
-/* Sıfırlama ve Temel Ayarlar */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -32,548 +28,317 @@ body {
 
 .container {
     width: 100%;
-    max-width: 500px; /* Mobil odaklı tasarım için */
+    max-width: 500px; /* Mobil odaklı dar tasarım */
     margin: 0 auto;
     background-color: var(--bg-white);
     min-height: 100vh;
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    padding-bottom: 75px; /* Alttaki nav bar için boşluk */
+    padding-bottom: 75px;
     position: relative;
 }
 
-.content {
-    padding: 20px 15px;
-}
-
-
-/* ===================================================================
-   YENİDEN KULLANILABİLİR BİLEŞENLER (Buttons, Lists, Headers)
-   =================================================================== */
-
-/* Sayfa Üst Barı (Geri Oklu Başlıklar) */
-.page-header {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background: var(--bg-white);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.page-header .back-arrow {
-    font-size: 22px;
-    color: var(--text-dark);
-    text-decoration: none;
-    position: absolute;
-    left: 15px;
-}
-
-.page-header h1 {
-    font-size: 17px;
-    font-weight: 500;
-    margin: 0;
-    width: 100%;
-    text-align: center;
-}
-
-/* Ana Navigasyon (En Altta) */
-.bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 500px;
-    background-color: var(--bg-white);
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    padding: 8px 0;
-    height: 65px;
-    z-index: 100;
-}
-
-.nav-item { 
-    text-align: center; 
-    color: #999; 
-    text-decoration: none; 
-    display:flex; 
-    flex-direction:column; 
-    gap: 4px; 
-    align-items: center;
-}
-.nav-item.active { 
-    color: var(--primary-color); 
-}
-.nav-item i { 
-    font-size: 22px; 
-}
-.nav-item span { 
-    font-size: 12px; 
-}
-
+.content { padding: 20px 15px; }
+.hidden { display: none !important; }
+.no-data-message { text-align: center; color: var(--text-light); padding: 40px 20px; }
 
 /* ===================================================================
-   GİRİŞ VE KAYIT SAYFALARI (login.html, register.html)
+    GLOBAL BUTON STİLİ (İLGİ ÇEKİCİ)
    =================================================================== */
-
-.auth-container {
-    padding: 40px 30px;
-    text-align: center;
-}
-
-.auth-header h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.auth-header p {
-    color: var(--text-light);
-    margin-bottom: 40px;
-}
-
-.auth-form .input-group {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.auth-form .input-group i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ccc;
-}
-
-.auth-form .input-group input {
-    width: 100%;
-    padding: 14px 14px 14px 45px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.auth-form .auth-button {
+.btn-primary {
+    display: block;
     width: 100%;
     padding: 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     background: var(--primary-gradient);
     color: white;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    margin-top: 10px;
-}
-
-.auth-footer {
-    margin-top: 30px;
-    color: var(--text-light);
-}
-
-.auth-footer a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* Flash Mesajları */
-.flash-error, .flash-success {
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
     text-align: center;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(249, 168, 37, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.flash-error {
-    background-color: #f8d7da;
-    color: #721c24;
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(249, 168, 37, 0.5);
 }
-.flash-success {
-    background-color: #d4edda;
-    color: #155724;
+.btn-primary:disabled {
+    background: var(--disabled-color);
+    color: var(--text-light);
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
 }
+
 
 /* ===================================================================
-   MINE SAYFASI VE ALT SAYFALARI
+    YENİDEN KULLANILABİLİR BİLEŞENLER
    =================================================================== */
 
-/* MINE (mine.html) */
-.mine-header {
-    background: var(--orange-bg);
-    color: white;
-    padding: 20px 20px 80px 20px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    position: relative;
-}
-.mine-header .user-info { display: flex; align-items: center; margin-bottom: 20px; }
-.mine-header .avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid white; margin-right: 15px; }
-.mine-header .user-details { display: flex; flex-direction: column; }
-.mine-header .username { font-size: 18px; font-weight: 600; }
-.mine-header .vip-badge { background-color: rgba(0,0,0,0.2); color: white; padding: 2px 6px; font-size: 10px; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
-.mine-header .invitation-code { font-size: 14px; opacity: 0.9; }
-.mine-header .account-balance h2 { margin: 0; font-size: 16px; font-weight: 400; opacity: 0.9; }
-.mine-header .balance { margin: 5px 0 0; font-size: 28px; font-weight: 600; }
-.mine-header-actions { 
-    position: absolute;
-    width: calc(100% - 40px);
-    left: 20px;
-    bottom: -30px;
-    display: flex;
-    justify-content: space-around;
-    padding: 20px 10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-.mine-header-actions .action-item { 
-    color: var(--text-dark); 
-    text-decoration: none; 
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-.mine-header-actions .action-item i { font-size: 22px; }
-.mine-header-actions .action-item span { font-size: 13px; }
+.page-header { display: flex; align-items: center; padding: 15px; background: var(--bg-white); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border-color); }
+.page-header .back-arrow { font-size: 22px; color: var(--text-dark); text-decoration: none; position: absolute; left: 15px; }
+.page-header h1 { font-size: 17px; font-weight: 500; margin: 0; width: 100%; text-align: center; }
 
-.main-menu-container {
-    padding: 60px 15px 15px 15px; /* header-actions için boşluk */
-}
-.list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 5px;
-    border-bottom: 1px solid var(--border-color);
-    text-decoration: none;
-    color: var(--text-dark);
-    font-size: 15px;
-}
+.bottom-nav { display: flex; justify-content: space-around; align-items: center; position: fixed; bottom: 0; width: 100%; max-width: 500px; background-color: var(--bg-white); box-shadow: 0 -2px 10px rgba(0,0,0,0.08); padding: 8px 0; height: 65px; z-index: 100; }
+.nav-item { text-align: center; color: #999; text-decoration: none; display:flex; flex-direction:column; gap: 4px; align-items: center; }
+.nav-item.active { color: var(--primary-color); }
+.nav-item i { font-size: 22px; }
+.nav-item span { font-size: 12px; }
+
+.list-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 5px; border-bottom: 1px solid var(--border-color); text-decoration: none; color: var(--text-dark); font-size: 15px; }
 .list-item:last-child { border-bottom: none; }
 .list-item i { margin-right: 12px; width: 20px; text-align: center; color: var(--text-light); }
 .list-item .fa-chevron-right { margin-right: 0; font-size: 14px; color: #ccc; }
-.logout .list-item span { 
-    color: var(--danger-color);
-    margin: 15px auto;
-}
 
-/* INVITE (invite.html) */
-.invite-container {
-    padding: 40px 20px;
-    text-align: center;
+.flash-messages { padding: 0 15px; }
+.flash-error, .flash-success { padding: 15px; margin-bottom: 20px; border-radius: 8px; text-align: center; }
+.flash-error { background-color: #fed7d7; color: #c53030; }
+.flash-success { background-color: #c6f6d5; color: #2f855a; }
+
+.tab-nav { display: flex; justify-content: space-around; border-bottom: 1px solid var(--border-color); background-color: white; }
+.tab-item { padding: 15px; color: var(--text-light); text-decoration: none; position: relative; cursor: pointer; }
+.tab-item.active { color: var(--primary-color); font-weight: 500; }
+.tab-item.active::after { content: ''; position: absolute; bottom: 0; left: 15px; right: 15px; height: 3px; background-color: var(--primary-color); border-radius: 2px; }
+.tab-content { padding: 20px; }
+
+
+/* ===================================================================
+    GİRİŞ VE KAYIT SAYFALARI
+   =================================================================== */
+.auth-container { padding: 40px 30px; }
+.auth-header { text-align: center; margin-bottom: 30px; }
+.auth-header h1 { font-size: 24px; margin-bottom: 10px; }
+.auth-header p { color: var(--text-light); }
+.auth-form .input-group { position: relative; margin-bottom: 20px; }
+.auth-form .input-group i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #ccc; }
+.auth-form .input-group input { width: 100%; padding: 14px 14px 14px 45px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 16px; }
+.auth-footer { margin-top: 30px; text-align: center; color: var(--text-light); }
+.auth-footer a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+
+/* Büyütülmüş Captcha */
+.captcha-group { display: flex; align-items: stretch; gap: 10px; margin-bottom: 20px; }
+.captcha-group input { flex-grow: 1; font-size: 16px; }
+.captcha-group .captcha-image { border-radius: 8px; height: 50px; width: 150px; }
+
+/* Giriş Sayfası Dil Seçici */
+.top-right-language-selector { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; border: 1px solid var(--border-color); border-radius: 5px; padding: 5px 8px; background: #fff; }
+.top-right-language-selector .flag-icon { margin-right: 5px; }
+.top-right-language-selector select { border: none; background: transparent; -webkit-appearance: none; -moz-appearance: none; appearance: none; font-size: 14px; cursor: pointer; }
+.top-right-language-selector select:focus { outline: none; }
+
+
+/* ===================================================================
+    ANA SAYFA (HOME)
+   =================================================================== */
+.home-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; }
+.home-header .logo { height: 30px; }
+.home-header .settings-icon { font-size: 20px; color: var(--text-light); text-decoration: none;}
+.notification-bar { padding: 10px 15px; background-color: #fffbeb; display: flex; align-items: center; gap: 10px; font-size: 13px; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+.notification-bar i { color: var(--orange-bg); }
+.notification-bar strong { color: var(--danger-color); }
+
+/* İLGİ ÇEKİCİ/MİNİMALİST HIZLI ERİŞİM BUTONLARI */
+.home-quick-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 25px 15px;
+    background-color: var(--bg-white);
 }
-.invite-container .code-label {
-    color: var(--text-light);
-    margin-bottom: 10px;
-}
-.invite-container .invitation-code {
-    font-size: 32px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-}
-.invite-container .qr-code {
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 10px auto;
-    background: #eee;
-    display: block;
-}
-.invite-container .qr-note {
-    color: var(--text-light);
-    font-size: 12px;
-    margin-bottom: 30px;
-}
-.share-link-box {
-    text-align: left;
-    background-color: var(--bg-light);
-    padding: 15px;
-    border-radius: 8px;
-}
-.share-link-box .share-link-url {
-    word-wrap: break-word;
-    margin-bottom: 10px;
-    font-size: 15px;
-}
-.share-link-box .copy-button {
-    float: right;
-    color: var(--primary-color);
+.home-quick-actions .action-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
-    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 14px;
 }
-
-/* TEAMS (teams.html) */
-.teams-header {
-    background: var(--orange-bg);
-    color: white;
-    padding: 20px;
+.home-quick-actions .action-link i {
+    font-size: 24px;
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
     text-align: center;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
-.teams-header h2 { font-size: 14px; font-weight: 400; margin-bottom: 5px; }
-.teams-header .team-amount { font-size: 36px; font-weight: 600; }
-
-.stats-grid {
-    background: var(--orange-bg);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.home-quick-actions .action-link:hover i {
+    background-color: var(--primary-color);
     color: white;
-    padding: 0 20px 20px 20px;
-    gap: 15px 0;
+    border-color: var(--primary-color);
 }
-.stats-grid .stat-item {
-    text-align: center;
-}
-.stats-grid .stat-value { font-size: 18px; font-weight: 500; }
-.stats-grid .stat-label { font-size: 12px; opacity: 0.9; }
 
+/* ANA SAYFA TANITIM KARTLARI */
+.platform-intro { padding: 20px 15px; background-color: #f9fafb; border-top: 1px solid var(--border-color);}
+.section-title { font-size: 18px; font-weight: 500; margin-bottom: 15px; }
+.intro-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.intro-card { border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-decoration: none; color: var(--text-dark);}
+.intro-card img { width: 100%; display: block; height: 100px; object-fit: cover; }
+.intro-card-content { padding: 10px; background: white; }
+.intro-card-content h3 { font-size: 14px; margin-bottom: 5px; }
+.intro-card-content p { font-size: 12px; color: var(--text-light); }
+
+/* ===================================================================
+    PARA YATIRMA (DEPOSIT)
+   =================================================================== */
+.form-section { margin-bottom: 25px; }
+.form-section h3 { margin-bottom: 15px; font-size: 16px; font-weight: 500; }
+.option-group { display: flex; flex-wrap: wrap; gap: 10px; }
+.option-box { display: flex; align-items: center; gap: 8px; border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; cursor: pointer; position: relative; }
+.option-box img { height: 24px; }
+.deposit-amount-input { width: 100%; border: none; border-bottom: 1px solid var(--border-color); font-size: 24px; padding: 10px 0; margin-bottom: 10px; outline: none; font-weight: 500; }
+.deposit-note { color: var(--text-light); font-size: 12px; }
+
+/* Deposit Details */
+.deposit-details-container { padding: 30px; text-align: center; }
+.deposit-details-container .amount { font-size: 32px; font-weight: 600; margin: 15px 0; }
+.deposit-details-container .wallet-address-box { background-color: var(--bg-light); padding: 15px; border-radius: 8px; margin: 20px 0; }
+.deposit-details-container .wallet-address { font-size: 14px; word-wrap: break-word; }
+.deposit-details-container .copy-btn { margin-top: 10px; background: none; border: none; color: var(--primary-color); font-weight: 500; cursor: pointer; }
+.deposit-details-container .hints { margin-top: 20px; font-size: 12px; color: var(--text-light); text-align: left; line-height: 1.6; }
+.deposit-details-container ol { padding-left: 20px; }
+
+/* ===================================================================
+    MENU SAYFASI 
+   =================================================================== */
+.vip-level-card { display: flex; align-items: center; padding: 15px; background-color: var(--bg-light); margin-bottom: 15px; border-radius: 10px; text-decoration: none; color: var(--text-dark); }
+.vip-level-card .logo-container { width: 60px; height: 60px; margin-right: 15px; background-color: white; border-radius: 8px; display: flex; justify-content: center; align-items: center; padding: 5px; }
+.vip-level-card .logo-container img { max-width: 100%; max-height: 100%; }
+
+/* ===================================================================
+    GÖREV DETAY (TASK DETAIL)
+   =================================================================== */
+.task-header { background: var(--orange-bg); padding: 20px; color: white; }
+.task-header h2 { font-weight: 400; font-size: 14px; margin-bottom: 5px; }
+.task-header .balance { font-size: 28px; font-weight: 600; }
+.task-stats-box { background-color: white; border-radius: 10px; padding: 20px; margin: -30px 20px 20px 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); position: relative; z-index: 5; text-align: center; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.task-stats-box .stat-value { font-weight: 500; font-size: 16px; }
+.task-stats-box .stat-label { font-size: 12px; color: var(--text-light); }
+.grab-order-button {margin-top: 20px;}
+
+/* ===================================================================
+    DİĞER SAYFALAR
+   =================================================================== */
+
+/* MINE (PROFILIM) */
+.mine-header { background: var(--orange-bg); color: white; padding: 20px 20px 80px 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; position: relative; }
+.mine-header .user-info { display: flex; align-items: center; margin-bottom: 20px; }
+.mine-header .avatar { width: 60px; height: 60px; border-radius: 50%; border: 2px solid white; margin-right: 15px; }
+.mine-header .username { font-size: 18px; font-weight: 600; }
+.mine-header .vip-badge { background-color: rgba(0,0,0,0.2); color: white; padding: 2px 6px; font-size: 10px; border-radius: 4px; margin-left: 5px; vertical-align: middle; }
+.mine-header .invitation-code { font-size: 14px; opacity: 0.9; }
+.mine-header .balance { margin: 5px 0 0; font-size: 28px; font-weight: 600; }
+.mine-header-actions { position: absolute; width: calc(100% - 40px); left: 20px; bottom: -30px; display: flex; justify-content: space-around; padding: 20px 10px; background-color: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.mine-header-actions .action-item { color: var(--text-dark); text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.mine-header-actions .action-item i { font-size: 22px; }
+.main-menu-container { padding: 60px 15px 15px 15px; }
+.logout-button { display: block; width: calc(100% - 30px); margin: 20px auto; padding: 15px; border-radius: 25px; border: none; background-color: #fed7d7; color: #c53030; text-align: center; text-decoration: none; font-size: 16px; font-weight: 500;}
+
+/* WALLET & WITHDRAWAL */
+.add-wallet-button { display: block; text-align: center; padding: 15px; border: 1px dashed var(--primary-color); color: var(--primary-color); border-radius: 8px; text-decoration: none; margin: 20px 0;}
+.wallet-list-item { background-color: var(--bg-light); padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+
+/* KAYIT SAYFALARI */
+.record-item { background-color: #fdfdfd; padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: flex-start; border: 1px solid var(--border-color); }
+.record-details .record-id { font-weight: 500; font-size: 15px; margin-bottom: 5px; }
+.record-details .record-status { font-size: 12px; }
+.record-info { text-align: right; }
+.record-info .record-amount { font-size: 16px; font-weight: 500; margin-bottom: 5px; }
+.record-info .record-timestamp { color: var(--text-light); font-size: 12px; }
+
+/* DİL AYARLARI */
+.language-select-dropdown {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+/* ===================================================================
+    GELİŞMİŞ MENU STİLİ (Mobil Uygulama Görünümü)
+   =================================================================== */
+
+/* Sekmeler */
 .tab-nav {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid var(--border-color);
-    background-color: white;
+    background-color: var(--bg-white);
 }
 .tab-item {
-    padding: 15px;
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
     color: var(--text-light);
     text-decoration: none;
     position: relative;
+    cursor: pointer;
 }
 .tab-item.active {
-    color: var(--primary-color);
+    color: var(--text-white);
+    background: var(--primary-gradient);
+    border-radius: 20px;
+    margin: 5px;
     font-weight: 500;
 }
-.tab-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 15px;
-    right: 15px;
-    height: 3px;
-    background-color: var(--primary-color);
-    border-radius: 2px;
-}
-.tab-content { padding: 20px; text-align: center; color: var(--text-light); }
 
-/* RECORDS (*_records.html, tasks_record.html) */
-.record-item {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
+/* VIP Kartları */
+.vip-level-card-new {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-.record-details .record-id {
-    font-weight: 500;
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-.record-details .record-status {
-    color: var(--primary-color);
-    font-size: 12px;
-}
-.record-info {
-    text-align: right;
-}
-.record-info .record-amount {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--primary-color);
-    margin-bottom: 5px;
-}
-.record-info .record-timestamp {
-    color: var(--text-light);
-    font-size: 12px;
-}
-
-/* ===================================================================
-   ANA SAYFA ve MENÜLER (home.html, menu.html, task_detail.html)
-   =================================================================== */
-
-/* HOME (home.html) */
-.home-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    background: var(--bg-white);
     padding: 15px;
-}
-.home-header .logo { height: 30px; }
-.home-quick-actions {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 15px;
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
-}
-.home-quick-actions a { color: var(--text-dark); text-decoration: none; }
-.home-quick-actions i { font-size: 20px; margin-bottom: 8px; }
-
-.platform-intro { padding: 20px 15px; }
-.section-title { font-size: 18px; font-weight: 500; margin-bottom: 15px; }
-.intro-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-.intro-card {
-    border-radius: 8px;
-    overflow: hidden;
+    margin: 12px 10px;
+    border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.intro-card img { width: 100%; display: block; height: 100px; object-fit: cover; }
-.intro-card-content { padding: 10px; }
-.intro-card-content h3 { font-size: 14px; margin-bottom: 5px; }
-.intro-card-content p { font-size: 12px; color: var(--text-light); }
-
-/* MENU (menu.html) */
-.menu-container .tab-nav { padding: 0 10px; }
-
-.vip-level-card {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    background-color: var(--bg-light);
-    margin-bottom: 15px;
-    border-radius: 10px;
     text-decoration: none;
     color: var(--text-dark);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-.vip-level-card .logo-container {
-    width: 60px;
-    height: 60px;
-    margin-right: 15px;
-    background-color: white;
+.vip-level-card-new:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.vip-level-card-new .logo-container {
+    width: 55px;
+    height: 55px;
+    margin-right: 12px;
+    background: #fff;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
-.vip-level-card .logo-container img { max-width: 100%; max-height: 100%; }
-.vip-info h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
+.vip-level-card-new img {
+    max-width: 100%;
+    max-height: 100%;
 }
-.vip-info p {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-bottom: 3px;
+.vip-level-card-new .vip-info {
+    flex: 1;
 }
-.vip-info .commission { color: var(--danger-color); font-weight: 500; }
-.vip-badge-label {
-    background-color: var(--orange-bg);
-    color: white;
-    font-size: 10px;
-    font-weight: 500;
-    padding: 2px 6px;
-    border-radius: 4px;
+.vip-level-card-new .vip-badge-label {
     display: inline-block;
-    margin-bottom: 5px;
-}
-
-/* GÖREV DETAY (task_detail.html) */
-.task-header {
-    background: var(--orange-bg);
-    padding: 20px;
-    color: white;
-}
-.task-header h2 { font-weight: 400; font-size: 14px; margin-bottom: 5px; }
-.task-header .balance { font-size: 28px; font-weight: 600; }
-
-.task-stats-box {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    margin: -30px 20px 20px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-.task-stats-box .stat-item .stat-value { font-weight: 500; font-size: 16px; }
-.task-stats-box .stat-item .stat-label { font-size: 12px; color: var(--text-light); }
-
-.grab-order-button {
-    display: block;
-    width: 80%;
-    margin: 30px auto;
-    padding: 16px;
-    border: none;
-    border-radius: 25px;
     background: var(--primary-gradient);
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(249, 168, 37, 0.4);
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 6px;
+    margin-bottom: 4px;
 }
-
-.hints {
-    padding: 0 20px;
+.vip-level-card-new .balance-range {
     font-size: 13px;
     color: var(--text-light);
-    line-height: 1.6;
 }
-.hints h3 { font-size: 15px; color: var(--text-dark); margin-bottom: 10px; }
-
-/* ===================================================================
-   DİĞER SAYFALAR
-   =================================================================== */
-
-/* DEPOSIT (deposit.html) */
-.form-section { margin-bottom: 25px; }
-.form-section h3 { margin-bottom: 15px; font-size: 16px; font-weight: 500; }
-.option-group { display: flex; flex-wrap: wrap; gap: 10px; }
-.option-box {
-    border: 1px solid var(--border-color);
-    padding: 10px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    position: relative;
-}
-.option-box.selected { border-color: var(--primary-color); }
-.option-box .check-icon {
-    display: none;
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    color: white;
-    background-color: var(--primary-color);
-    padding: 2px;
-    border-top-left-radius: 8px;
-    font-size: 10px;
-}
-.option-box.selected .check-icon { display: block; }
-.deposit-amount-input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid var(--border-color);
-    font-size: 24px;
-    padding: 10px 0;
-    margin-bottom: 10px;
-    outline: none;
-}
-.deposit-note { color: var(--text-light); font-size: 12px; }
-.deposit-button {
-    position: fixed;
-    bottom: 20px;
-    left: 5%;
-    width: 90%;
-    max-width: 450px; /* Max width matches .container */
-    padding: 15px;
-    border: none;
-    border-radius: 25px;
-    background: var(--primary-gradient);
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* SERVICE (service.html) */
-.service-header-image {
-    width: 100%;
-    display: block;
+.vip-level-card-new .vip-commission {
+    font-size: 14px;
+    color: var(--danger-color);
+    font-weight: 600;
 }

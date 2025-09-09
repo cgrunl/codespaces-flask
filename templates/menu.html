@@ -4,45 +4,77 @@
 
 {% block content %}
 
-<!-- Sayfa başlığı -->
 <header class="page-header">
     <h1>Menu</h1>
 </header>
 
 <main>
-    <!-- VIP Seviyesi filtreleme sekmeleri -->
-    <nav class="tab-nav">
-        <a href="#" class="tab-item active">All</a>
+    <!-- Sekme butonları -->
+    <nav class="tab-nav" id="vip-filters">
+        <a href="#" class="tab-item active" data-filter="all">All</a>
         {% for level in levels %}
-            <a href="#" class="tab-item">VIP {{ level.level }}</a>
+            <a href="#" class="tab-item" data-filter="{{ level.level }}">VIP {{ level.level }}</a>
         {% endfor %}
     </nav>
 
     <!-- VIP seviyelerinin listelendiği alan -->
-    <div class="vip-list content">
+    <div class="vip-list-new content">
         {% for level in levels %}
-        <!--
-            Her bir kart, ilgili görev detay sayfasına yönlendirir.
-            url_for('task_detail', level_id=level.level) -> /task_detail/1, /task_detail/2 vb.
-        -->
-        <a href="{{ url_for('task_detail', level_id=level.level) }}" class="vip-level-card">
+        <a href="{{ url_for('task_detail', level_id=level.level) }}" 
+           class="vip-level-card-new" 
+           data-level="{{ level.level }}">
+           
             <div class="logo-container">
-                <!-- Veritabanından gelen logo_url'sini kullanıyoruz -->
                 <img src="{{ level.logo_url }}" alt="{{ level.name }} Logo">
             </div>
+
             <div class="vip-info">
                 <span class="vip-badge-label">VIP {{ level.level }}</span>
                 <h3>{{ level.name }}</h3>
-                <p>Available balance: {{ "%.0f"|format(level.min_balance) }} USDT - {{ "%.0f"|format(level.max_balance) }} USDT</p>
-                <p class="commission">Commissions: {{ "%.0f"|format(level.commission_rate) }}%</p>
+                <p class="balance-range">
+                    Available balance: 
+                    {% if level.max_balance and level.max_balance > 0 %}
+                        {{ "%.0f"|format(level.min_balance) }}USDT-{{ "%.0f"|format(level.max_balance) }} USDT
+                    {% else %}
+                        ≥{{ "%.0f"|format(level.min_balance) }} USDT
+                    {% endif %}
+                </p>
+            </div>
+
+            <div class="vip-commission">
+                <p>Commissions: <span>{{ "%.0f"|format(level.commission_rate) }}%</span></p>
             </div>
         </a>
         {% else %}
-        <!-- Veritabanında hiç seviye bulunamazsa bu mesaj gösterilir -->
         <p class="no-data-message">No VIP levels found.</p>
         {% endfor %}
-
-        <p class="no-data-message">No more</p>
+        <p class="no-data-message" style="margin-top: 20px;">No more</p>
     </div>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filters = document.querySelectorAll('#vip-filters .tab-item');
+        const cards = document.querySelectorAll('.vip-level-card-new');
+
+        filters.forEach(filter => {
+            filter.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                filters.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-level') === filterValue) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+</script>
 {% endblock %}

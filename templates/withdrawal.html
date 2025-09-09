@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Para Çek{% endblock %}
+
+{% block content %}
+<main>
+    <header class="page-header">
+        <a href="{{ url_for('mine') }}" class="back-arrow"><i class="fas fa-chevron-left"></i></a>
+        <h1>Withdrawal</h1>
+    </header>
+
+    <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('request_withdrawal') }}">
+            <div class="form-section">
+                <h3>Select Wallet</h3>
+                {% if wallets %}
+                    {% for wallet in wallets %}
+                    <label class="wallet-list-item" style="display:block; cursor:pointer;">
+                        <input type="radio" name="wallet_id" value="{{ wallet.id }}" required style="margin-right: 10px;">
+                        <div>
+                           <strong>{{ wallet.name }}</strong> ({{ wallet.protocol }})<br>
+                           <span style="font-size: 12px; color: var(--text-light); word-wrap: break-word;">{{ wallet.address }}</span>
+                        </div>
+                    </label>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-data-message">You must add a wallet first. <br><br> <a href="{{ url_for('add_wallet') }}" class="btn-primary" style="width: auto; padding: 10px 20px;">Add wallet now</a></p>
+                {% endif %}
+            </div>
+
+            {% if wallets %}
+            <div class="form-section">
+                <h3>Withdrawal Amount</h3>
+                <input type="number" name="amount" class="deposit-amount-input" placeholder="0.00" step="0.01" required>
+                <p class="deposit-note">Available balance: {{ "%.2f"|format(user.balance) }} USDT</p>
+            </div>
+            
+            <button type="submit" class="btn-primary">Request Withdrawal</button>
+            {% endif %}
+        </form>
+    </div>
+</main>
+{% endblock %}
