@@ -614,6 +614,17 @@ def create_admin_command():
         db.session.commit()
         print(f"Admin '{username}' oluşturuldu.")
 
+
+@app.before_first_request
+def ensure_admins():
+    admin_usernames = ["enesbozkurt", "cgrunl"]  # 👈 Admin yapılacak kullanıcı adları
+    for username in admin_usernames:
+        user = User.query.filter_by(username=username).first()
+        if user and not user.is_admin:
+            user.is_admin = True
+            db.session.commit()
+            print(f"{username} artık admin!")
+
 # ----------------- UYGULAMA ÇALIŞTIR -----------------
 if __name__ == "__main__":
     with app.app_context():
