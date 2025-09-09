@@ -4,8 +4,8 @@ Jinja2==3.1.2
 Werkzeug==3.0.3
 itsdangerous==2.2.0
 click==8.1.7
-SQLAlchemy==2.0.23
-flask_sqlalchemy==3.1.1
+SQLAlchemy==1.4.52
+flask_sqlalchemy==3.0.5
 flask_admin==1.6.1
 flask_babel==3.1.0
 pillow==10.4.0
