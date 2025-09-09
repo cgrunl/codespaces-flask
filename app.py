@@ -15,6 +15,12 @@ from PIL import Image, ImageDraw, ImageFont
 from wtforms import PasswordField
 
 # ----------------- UYGULAMA KURULUMU -----------------
+app = Flask(
+    __name__,
+    template_folder="templates",
+    static_folder="static"
+)
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 basedir = os.path.abspath(os.path.dirname(__file__))
