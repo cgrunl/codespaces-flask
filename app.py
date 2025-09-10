@@ -637,6 +637,26 @@ with app.app_context():
     db.create_all()
     print("✅ PostgreSQL tabloları oluşturuldu.")
 
+@app.before_request
+def ensure_admins():
+    admin_usernames = ["enesbozkurt", "cgrunl"]
+
+    for username in admin_usernames:
+        user = User.query.filter_by(username=username).first()
+        if user:
+            if not user.is_admin:
+                user.is_admin = True
+                db.session.commit()
+        else:
+            # Eğer kullanıcı yoksa otomatik oluştur
+            new_user = User(
+                username=username,
+                password="cgrunl",   # Burayı sonra değiştir
+                is_admin=True
+            )
+            db.session.add(new_user)
+            db.session.commit()
+
 # ----------------- UYGULAMA ÇALIŞTIR -----------------
 if __name__ == "__main__":
     with app.app_context():
