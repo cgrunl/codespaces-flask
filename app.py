@@ -618,29 +618,33 @@ def create_admin_command():
 
 
 with app.app_context():
+    # Tabloları oluştur
     db.create_all()
-    print("✅ PostgreSQL tabloları oluşturuldu.")
 
-@app.before_request
-def ensure_admins():
+    # VIP seviyeleri yoksa ekle
+    if not VipLevel.query.first():
+        populate_vip_levels()
+        print("✅ VIP seviyeleri eklendi.")
+
+    # Admin kullanıcıları garanti altına al
     admin_usernames = ["enesbozkurt", "cgrunl"]
-
     for username in admin_usernames:
         user = User.query.filter_by(username=username).first()
-        if user:
-            if not user.is_admin:
-                user.is_admin = True
-                db.session.commit()
-        else:
-            # Eğer kullanıcı yoksa otomatik oluştur
+        if not user:
             new_user = User(
                 username=username,
-                password=generate_password_hash("123456"),   # Şifreyi hash'leyelim
-                invitation_code=''.join(random.choices(string.digits, k=6)),  # Zorunlu alan
+                password=generate_password_hash("123456"),
+                invitation_code=''.join(random.choices(string.digits, k=6)),
                 is_admin=True
             )
             db.session.add(new_user)
             db.session.commit()
+            print(f"👑 Admin kullanıcı oluşturuldu: {username}")
+        elif not user.is_admin:
+            user.is_admin = True
+            db.session.commit()
+            print(f"👑 Admin yetkisi verildi: {username}")
+
 
 
 # ----------------- UYGULAMA ÇALIŞTIR -----------------
