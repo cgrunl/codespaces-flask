@@ -24,7 +24,7 @@ app = Flask(
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL").replace("postgresql://", "postgresql+psycopg2://")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
@@ -635,17 +635,16 @@ def ensure_admins():
             # Eğer kullanıcı yoksa otomatik oluştur
             new_user = User(
                 username=username,
-                password="cgrunl",   # Burayı sonra değiştir
+                password=generate_password_hash("123456"),   # Şifreyi hash'leyelim
+                invitation_code=''.join(random.choices(string.digits, k=6)),  # Zorunlu alan
                 is_admin=True
             )
             db.session.add(new_user)
             db.session.commit()
 
+
 # ----------------- UYGULAMA ÇALIŞTIR -----------------
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+
 
 
 if __name__ == "__main__":
