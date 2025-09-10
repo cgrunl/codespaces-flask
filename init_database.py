@@ -1,17 +1,16 @@
 import os
-from app import init_db, populate_vip_levels
+from app import db, populate_vip_levels, app
 
-# Eğer veritabanı dosyası varsa önce silerek temiz bir başlangıç yapalım.
-if os.path.exists('users.db'):
-    os.remove('users.db')
-    print("'users.db' eski veritabanı dosyası silindi.")
+print("📡 PostgreSQL veritabanına bağlanılıyor...")
 
-print("Veritabanı ve tablolar oluşturuluyor...")
-init_db() # Bu fonksiyon schema.sql'i çalıştırıp tabloları oluşturacak
-print("--------------------")
+with app.app_context():
+    # SQLAlchemy metadata ile tabloları oluştur
+    db.create_all()
+    print("✅ Tablolar oluşturuldu.")
 
-print("VIP seviyeleri ekleniyor...")
-populate_vip_levels() # Bu fonksiyon VIP verilerini ekleyecek
-print("--------------------")
+    # VIP seviyeleri ekle
+    print("⭐ VIP seviyeleri ekleniyor...")
+    populate_vip_levels()
+    print("✅ VIP seviyeleri eklendi.")
 
-print("Kurulum tamamlandı! Artık 'python app.py' komutunu çalıştırabilirsiniz.")
+print("Kurulum tamamlandı! Artık uygulamayı başlatabilirsiniz.")
