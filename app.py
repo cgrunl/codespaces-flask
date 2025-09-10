@@ -633,6 +633,9 @@ def ensure_admins():
 
     first_run = False
 
+with app.app_context():
+    db.create_all()
+    print("✅ PostgreSQL tabloları oluşturuldu.")
 
 # ----------------- UYGULAMA ÇALIŞTIR -----------------
 if __name__ == "__main__":
